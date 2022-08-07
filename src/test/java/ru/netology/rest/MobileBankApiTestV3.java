@@ -1,6 +1,7 @@
 package ru.netology.rest;
 
 import io.restassured.http.ContentType;
+import io.restassured.module.jsv.JsonSchemaValidator;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
@@ -25,6 +26,8 @@ class MobileBankApiTestV3 {
           .body("", hasSize(3))
           .body("[0].currency", equalTo("RUB"))
           .body("[0].balance", greaterThanOrEqualTo(0))
+              // static import для JsonSchemaValidator.matchesJsonSchemaInClasspath
+              .body(JsonSchemaValidator.matchesJsonSchemaInClasspath("accounts.schema.json"))
       ;
     }
 }
